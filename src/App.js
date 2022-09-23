@@ -1,25 +1,38 @@
-import logo from './logo.svg';
+import React, {Component} from 'react';
 import './App.css';
+import FactsBox from './FactsBox';
+import InputBox from './InputBox';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+
+  constructor () {
+    super();
+    this.state = {
+      facts : '',
+      searchfield : ''
+    }
+  }
+
+  onInputChange = (event) => {
+    this.setState({searchfield : event.target.value})
+  }
+
+  buttonClicked = () => {
+    fetch(`http://numbersapi.com/${this.state.searchfield}`)
+    .then(resp => resp.text())
+    .then(data => this.setState({facts : data}))
+  }
+
+  render () {
+    return (
+      <div className="App tc">
+            <h1>Welcome to the World of Numbers</h1>
+            <h2>Enter a Number</h2>
+            <InputBox input={this.onInputChange} buttonClick={this.buttonClicked}/>
+            <FactsBox fact={this.state.facts}/>
+      </div>
+    );
+  }
 }
 
 export default App;
