@@ -1,6 +1,6 @@
 {
   "name": "my-first-app",
-  "homepage": "https://shameem-up.github.io/numberfacts",
+  "homepage": "https://shameem-up.github.io/chucknorris",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

@@ -1,35 +1,32 @@
 import React, {Component} from 'react';
 import './App.css';
-import FactsBox from './FactsBox';
-import InputBox from './InputBox';
+import JokesBox from './JokesBox';
+
 
 class App extends Component {
 
   constructor () {
     super();
     this.state = {
-      facts : '',
-      searchfield : ''
+      Jokes : {}
     }
   }
 
-  onInputChange = (event) => {
-    this.setState({searchfield : event.target.value})
-  }
-
   buttonClicked = () => {
-    fetch(`http://numbersapi.com/${this.state.searchfield}`)
-    .then(resp => resp.text())
-    .then(data => this.setState({facts : data}))
+    fetch('https://api.chucknorris.io/jokes/random')
+    .then(resp => resp.json())
+    .then(data => this.setState({Jokes : data}))
   }
 
   render () {
     return (
       <div className="App tc">
-            <h1>Welcome to the World of Numbers</h1>
-            <h2>Enter a Number</h2>
-            <InputBox input={this.onInputChange} buttonClick={this.buttonClicked}/>
-            <FactsBox fact={this.state.facts}/>
+            <h1>Welcome to the World of Chuck Norris</h1>
+            <h2>Chuck Norris doesnot sleep, he waits</h2>
+            <JokesBox 
+            joke={this.state.Jokes.value} 
+            clicked={this.buttonClicked}
+            />
       </div>
     );
   }
